@@ -117,13 +117,10 @@ public class CuratorTest {
         //1.创建NodeCache对象
         final NodeCache nodeCache = new NodeCache(client,"/app2");
         //2.注册监听
-        nodeCache.getListenable().addListener(new NodeCacheListener() {
-            @Override
-            public void nodeChanged() throws Exception {
-                System.out.println("节点变化了~~~");
-                byte[] data = nodeCache.getCurrentData().getData();
-                System.out.println("修改节点后的数据为： " + new String(data));
-            }
+        nodeCache.getListenable().addListener(() -> {
+            System.out.println("节点变化了~~~");
+            byte[] data = nodeCache.getCurrentData().getData();
+            System.out.println("修改节点后的数据为： " + new String(data));
         });
 
         //3.开启监听，如果设置为true，则开启监听加载缓存数据
